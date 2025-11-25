@@ -29,5 +29,90 @@ int main()
     return 0;
 }
 
+/////complete the function printNumber which takes an integer input from the user and prints it on the screen
+#include <iostream>
+using namespace std;
 
+int printNumber(int x)
+{
+    cin >> x ;
+    cout << x ;
+
+}
+
+int main()
+{
+
+int x;
+
+int y;
+
+printNumber(x);
+
+cout << endl;
+
+printNumber(y);
+
+return 0;
+
+}
+
+
+## include <bits/stdc++.h> : It includes all the libraries there are in c++ . It takes a bit more time but thats okay .
+
+2. **Data Types**
+
+## int - 4 bytes - range = -2,147,483,648 to 2,147,483,647
+
+## long
+
+## long long
+
+## float - 4 byte
+
+## double - 8 byte
+
+## string :
+getline(cin , s) : It also reads spaces in the input till the line breaks only , it is something cin doesnt offers it only reads untill the space .
+
+## char
+
+
+
+3. **if-else Statement**
+
+
+//
+#include <iostream>
+using namespace std;
+
+int main()
+{
+ int marks;
+
+    cin >> marks;
+
+    if(marks >= 90)
+    {
+        cout << "Grade A";
+    }
+    else if(marks >= 70)
+    {
+        cout << "Grade B";
+    }
+    else if(marks >= 50)
+    {
+        cout << "Grade C";
+    }
+    else if(marks >= 35)
+    {
+        cout << "Grade D";
+    }
+    else
+    {
+        cout << "Fail";
+    }
+
+    return 0;
+}
 
