@@ -1,6 +1,5 @@
 # C++ basics One shot 
 
-
 1. **Skeleton/Basic Structure of C++ program**
 
 #include <iostream>
@@ -168,3 +167,44 @@ switch(day) {
 return 0;
 
 }
+
+
+5. **Arrays**
+
+## Basic Knowledge of 1-d array
+## They would teach 2-d array better in future lectures
+## STL C++ Video will teach about built in array functions and alo too
+
+6. **Strings**
+
+## Basic knowledge pf string/array of char
+
+7. **Functions**
+
+## Functions are a set of code which performs something for you.
+
+## Functions are used to modularize code.
+
+## Functions are used to increase readability.
+
+## Functions are used to use same code multiple time.
+
+## Protoype of Functions
+
+    //writing a function
+    return_type function_name(parameter 1 , parameter 2)
+    {
+       //statements
+    }
+
+
+### Pass by Value Funtions
+
+* It uses the value (kinda like a copy) of the parameter which is mostly like a copy of that value not the actual value so usually the desired change doesnt happens to 
+the variable which most of the time causes few issues.
+
+### Pass by Reference Function
+
+* Using address of the parameter.
+* By using a &(ampersand) operator.
+* Since it is using the address of the parameter it is working with the original data and any operation done in this function will tamper the original data.
