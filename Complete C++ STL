@@ -1,0 +1,40 @@
+Complete C++ STL
+
+## STL = Standard Template Library
+
+We'll Learn
+1. Algorithm
+2. Container
+3. Function
+4. Iterators
+
+
+## Containers 
+
+STL containers are generic data structures (like arrays, lists, sets, maps) that store and organize elements in memory, providing fast and easy operations such as 
+insertion, deletion, and traversal.
+
+## Pairs
+
+A pair in C++ is a simple STL container that stores two values (possibly of different types) as a single unit.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
