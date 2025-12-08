@@ -18,8 +18,27 @@ insertion, deletion, and traversal.
 
 A pair in C++ is a simple STL container that stores two values (possibly of different types) as a single unit.
 
+## Vectors
 
+## for each loop
 
+## List
+
+## Dequeue
+
+## set
+
+## multiset
+
+## unordered set
+
+## Map
+
+## Multimap
+
+## Unordered Map
+
+## Sorting
 
 
 
