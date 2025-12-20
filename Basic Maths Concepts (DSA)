@@ -60,6 +60,34 @@ while (N > 0) {
 }
 ```
 
+Source Code
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+
+    int n ; 
+
+    cin >> n;
+
+    int rev = 0 , last = 0;
+
+    while(n>0)
+    {
+        last = n%10;
+        n = n/10;
+        rev = (rev * 10) + last;
+    }
+
+    cout << "Reversed number = "<< rev ;
+
+    return 0;
+
+}
+
 ---
 
 ## 4️. Check Palindrome Number
@@ -88,6 +116,43 @@ if (revNum == original)
 else
     print("Not Palindrome")
 ```
+
+Source Code 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+
+    int n ; 
+
+    cin >> n;
+
+    int copy = n;
+
+    int rev = 0;  int last ;
+
+    while(n>0)
+    {
+        last = n % 10;
+        n = n/10;
+        rev = (rev * 10) + last;
+    }
+
+    if(rev == copy)
+    {
+        cout << "The number " << copy << " is pallindrome";
+    }
+    else
+    {
+        cout << " The number " << copy <<" is not pallindrome";
+    }
+
+    return 0;
+
+}
 
 ---
 
@@ -122,6 +187,33 @@ if (sum == dup)
 else
     print("Not Armstrong")
 ```
+Source Code 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+
+    int n ; 
+
+    cin >> n;
+
+    int check = 0; int last = 0;
+
+    while(n>0)
+    {
+        last = n%10;
+        n = n/10;
+        check = check + (last*last*last);
+    }
+
+    cout << check;
+
+    return 0;
+
+}
 
 ---
 
@@ -167,6 +259,37 @@ if (count == 2)
 else
     print("Not Prime")
 ```
+
+Source Code 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+
+    int n ; 
+
+    cin >> n;
+
+    for(int i = 2; i<n ; i++)
+    {
+        if(n%i == 0)
+        {
+            cout << n << " is not prime";
+            exit(0);
+        }
+        else
+        {
+            cout << n << " is prime";
+            exit(0);
+        }
+    }
+
+    return 0;
+
+}
 
 ---
 
