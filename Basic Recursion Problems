@@ -1,0 +1,63 @@
+# Basic Recursion Problems
+
+These are common beginner-level recursion problems used to understand **function calls, base conditions, and backtracking**.
+
+---
+
+## 1. Print Name 5 Times
+
+Print a given name exactly 5 times using recursion.
+
+### Logic
+
+* Print name
+* Call function again
+* Stop when count reaches 5
+
+---
+
+## 2. Print Linearly from 1 to N
+
+Print numbers from **1 to N** in increasing order using recursion.
+
+### Idea
+
+* Print current number
+* Call function for next number
+
+---
+
+## 3. Print from N to 1
+
+Print numbers from **N to 1** using recursion.
+
+### Idea
+
+* Print current number
+* Call function for previous number
+
+---
+
+## 4. Print Linearly from 1 to N (Using Backtracking)
+
+Numbers are printed **after** recursive calls return.
+
+### Idea
+
+* First make recursive call
+* Print number while returning
+
+This demonstrates **backtracking**.
+
+---
+
+## 5. Print from N to 1 (Using Backtracking)
+
+Reverse printing using backtracking.
+
+### Idea
+
+* Recursive calls go till base condition
+* Printing happens while returning
+
+---
