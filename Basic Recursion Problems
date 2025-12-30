@@ -16,6 +16,43 @@ Print a given name exactly n times using recursion.
 
 ### Source Code
 
+#include <bits/stdc++.h>
+using namespace std;
+
+void name(int i, int n)
+{
+    if(i>n)
+    return;
+    else
+    cout << "Miller" << endl;
+    name(i+1,n);
+}
+
+int main()
+{
+
+    int n;
+    cin >> n;
+
+    name(1,n);
+
+    return 0;
+}
+
+---
+
+## 2. Print Linearly from 1 to N
+
+Print numbers from **1 to N** in increasing order using recursion.
+
+### Idea
+
+* Print current number
+* Call function for next number
+
+
+### Source Code
+
 #include <iostream>
 using namespace std;
 
@@ -39,18 +76,6 @@ int main() {
 
     return 0;
 }
-
----
-
-## 2. Print Linearly from 1 to N
-
-Print numbers from **1 to N** in increasing order using recursion.
-
-### Idea
-
-* Print current number
-* Call function for next number
-
 ---
 
 ## 3. Print from N to 1
