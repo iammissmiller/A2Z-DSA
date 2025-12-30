@@ -4,15 +4,41 @@ These are common beginner-level recursion problems used to understand **function
 
 ---
 
-## 1. Print Name 5 Times
+## 1. Print Name n Times
 
-Print a given name exactly 5 times using recursion.
+Print a given name exactly n times using recursion.
 
 ### Logic
 
 * Print name
 * Call function again
 * Stop when count reaches 5
+
+### Source Code
+
+#include <iostream>
+using namespace std;
+
+void numbers(int i , int n)
+{
+    if(i > n)
+    return;
+    
+    cout << i << " ";
+    
+    numbers(i+1 , n);
+}
+
+int main() {
+    
+    int n;
+
+    cin >> n;
+    
+    numbers(1,n);
+
+    return 0;
+}
 
 ---
 
