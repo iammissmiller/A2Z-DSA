@@ -240,7 +240,218 @@ void leftRotateByK(vector<int>& arr, int n, int k) {
 
 # MOVE ZEROS TO END 
 
+Below is a **clear, placement-oriented explanation** of the three approaches usually taught in this problem.
 
+---
+
+# Move Zeros to End
+
+**Problem:**
+Given an array, move all the zeros to the end while maintaining the **relative order of non-zero elements**.
+
+**Example:**
+Input: `1 0 2 3 0 4 0 1`
+Output: `1 2 3 4 1 0 0 0`
+
+---
+
+# 1. Brute Force Approach
+
+## Idea
+
+* Create a **temporary array**.
+* First, store all **non-zero elements**.
+* Then fill remaining positions with zeros.
+
+## Steps
+
+1. Create a new array `temp`.
+2. Traverse the original array:
+
+   * If element ≠ 0 → push into `temp`.
+3. Count how many zeros are needed.
+4. Append zeros at the end.
+
+## Time and Space
+
+* Time Complexity: **O(n)**
+* Space Complexity: **O(n)** (extra array)
+
+## C++ Code
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> moveZerosBrute(vector<int> arr) {
+    vector<int> temp;
+
+    // store non-zero elements
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] != 0)
+            temp.push_back(arr[i]);
+    }
+
+    // count zeros
+    int zeros = arr.size() - temp.size();
+
+    // append zeros
+    for (int i = 0; i < zeros; i++) {
+        temp.push_back(0);
+    }
+
+    return temp;
+}
+
+int main() {
+    vector<int> arr = {1, 0, 2, 3, 0, 4, 0, 1};
+    vector<int> result = moveZerosBrute(arr);
+
+    for (int x : result)
+        cout << x << " ";
+}
+```
+
+---
+
+# 2. Better Approach (Two-Pass, In-Place)
+
+## Idea
+
+* Move all **non-zero elements to the front**.
+* Then fill the remaining part with zeros.
+* No extra array needed.
+
+## Steps
+
+1. Keep an index `j = 0`.
+2. Traverse array:
+
+   * If element ≠ 0:
+
+     * Place it at index `j`.
+     * Increment `j`.
+3. After loop:
+
+   * Fill remaining indices with `0`.
+
+## Time and Space
+
+* Time Complexity: **O(n)**
+* Space Complexity: **O(1)**
+
+## C++ Code
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void moveZerosBetter(vector<int>& arr) {
+    int j = 0;
+
+    // move non-zero elements forward
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] != 0) {
+            arr[j] = arr[i];
+            j++;
+        }
+    }
+
+    // fill remaining with zeros
+    while (j < arr.size()) {
+        arr[j] = 0;
+        j++;
+    }
+}
+
+int main() {
+    vector<int> arr = {1, 0, 2, 3, 0, 4, 0, 1};
+    moveZerosBetter(arr);
+
+    for (int x : arr)
+        cout << x << " ";
+}
+```
+
+---
+
+# 3. Optimal Approach (Two Pointers, Single Pass)
+
+## Idea
+
+* Use **two pointers**.
+* Find the **first zero**.
+* Swap it with the next non-zero element.
+
+## Steps
+
+1. Find first zero index → `j`.
+2. Traverse from `j+1` to end:
+
+   * If element ≠ 0:
+
+     * Swap `arr[i]` and `arr[j]`.
+     * Increment `j`.
+
+## Time and Space
+
+* Time Complexity: **O(n)**
+* Space Complexity: **O(1)**
+* Only **one pass after first zero** → most efficient in practice.
+
+## C++ Code
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void moveZerosOptimal(vector<int>& arr) {
+    int n = arr.size();
+    int j = -1;
+
+    // find first zero
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == 0) {
+            j = i;
+            break;
+        }
+    }
+
+    // if no zero found
+    if (j == -1) return;
+
+    // swap with non-zero elements
+    for (int i = j + 1; i < n; i++) {
+        if (arr[i] != 0) {
+            swap(arr[i], arr[j]);
+            j++;
+        }
+    }
+}
+
+int main() {
+    vector<int> arr = {1, 0, 2, 3, 0, 4, 0, 1};
+    moveZerosOptimal(arr);
+
+    for (int x : arr)
+        cout << x << " ";
+}
+```
+
+---
+
+# Quick Comparison
+
+| Approach | Time | Space | Key Idea                |
+| -------- | ---- | ----- | ----------------------- |
+| Brute    | O(n) | O(n)  | Use extra array         |
+| Better   | O(n) | O(1)  | Shift non-zeros forward |
+| Optimal  | O(n) | O(1)  | Two-pointer swapping    |
+
+---
 
 # LINEAR SEARCH 
 
