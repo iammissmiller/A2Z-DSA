@@ -1,6 +1,246 @@
 # LEFT ROTATE ARRAY BY ONE PLACE 
 
+## 1. Move Array by One Place
+
+### Problem
+
+Given an array of size **n**, shift all elements **one position to the left**.
+The first element moves to the last position.
+
+**Example:**
+Input: `[1, 2, 3, 4, 5]`
+Output: `[2, 3, 4, 5, 1]`
+
+---
+
+### Brute Force Approach
+
+**Idea:**
+Create a new array and manually shift elements.
+
+**Steps:**
+
+1. Create a new array `temp` of size `n`.
+2. Copy elements from index `1` to `n-1` into `temp[0]` to `temp[n-2]`.
+3. Put the first element at the last index.
+
+**Time Complexity:** O(n)
+**Space Complexity:** O(n)
+
+**Code (C++):**
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+void leftRotateByOne(vector<int>& arr, int n) {
+    vector<int> temp(n);
+
+    for (int i = 1; i < n; i++) {
+        temp[i - 1] = arr[i];
+    }
+
+    temp[n - 1] = arr[0];
+
+    for (int i = 0; i < n; i++) {
+        arr[i] = temp[i];
+    }
+}
+```
+
+---
+
+### Better Approach
+
+**Idea:**
+Store the first element and shift all others left.
+
+**Steps:**
+
+1. Store `arr[0]` in a variable.
+2. Shift all elements left.
+3. Put stored element at the end.
+
+**Time Complexity:** O(n)
+**Space Complexity:** O(1)
+
+**Code (C++):**
+
+```cpp
+void leftRotateByOne(vector<int>& arr, int n) {
+    int first = arr[0];
+
+    for (int i = 1; i < n; i++) {
+        arr[i - 1] = arr[i];
+    }
+
+    arr[n - 1] = first;
+}
+```
+
+---
+
+### Optimal Approach
+
+For **rotation by one**, the better and optimal approaches are the same, because:
+
+* Minimum work required is shifting all elements once.
+* Cannot be done in less than O(n) time.
+
+So, the **in-place shifting method** is the optimal solution.
+
+---
+
+## 2. Move Array by K Places (Left Rotation)
+
+### Problem
+
+Rotate the array **left by k positions**.
+
+**Example:**
+Input: `[1, 2, 3, 4, 5]`, `k = 2`
+Output: `[3, 4, 5, 1, 2]`
+
+---
+
+### Brute Force Approach
+
+**Idea:**
+Rotate the array one place, **k times**.
+
+**Steps:**
+
+1. Repeat k times:
+
+   * Store first element.
+   * Shift all elements left.
+   * Place stored element at end.
+
+**Time Complexity:** O(n × k)
+**Space Complexity:** O(1)
+
+**Code:**
+
+```cpp
+void leftRotateByK(vector<int>& arr, int n, int k) {
+    k = k % n;
+
+    for (int i = 0; i < k; i++) {
+        int first = arr[0];
+
+        for (int j = 1; j < n; j++) {
+            arr[j - 1] = arr[j];
+        }
+
+        arr[n - 1] = first;
+    }
+}
+```
+
+---
+
+### Better Approach (Using Extra Array)
+
+**Idea:**
+Store first k elements separately, shift remaining elements, then append stored ones.
+
+**Steps:**
+
+1. Create temp array of size k.
+2. Store first k elements.
+3. Shift remaining elements to the left.
+4. Copy temp elements to the end.
+
+**Time Complexity:** O(n)
+**Space Complexity:** O(k)
+
+**Code:**
+
+```cpp
+void leftRotateByK(vector<int>& arr, int n, int k) {
+    k = k % n;
+    vector<int> temp(k);
+
+    for (int i = 0; i < k; i++) {
+        temp[i] = arr[i];
+    }
+
+    for (int i = k; i < n; i++) {
+        arr[i - k] = arr[i];
+    }
+
+    for (int i = n - k; i < n; i++) {
+        arr[i] = temp[i - (n - k)];
+    }
+}
+```
+
+---
+
+### Optimal Approach (Reversal Algorithm)
+
+**Idea:**
+Use **array reversal** to rotate in-place.
+
+**Steps:**
+
+1. Reverse first k elements.
+2. Reverse remaining n−k elements.
+3. Reverse the whole array.
+
+**Why it works:**
+Reversal rearranges segments into rotated order.
+
+---
+
+**Example:**
+Array: `[1, 2, 3, 4, 5]`, k = 2
+
+Step 1: Reverse first k
+`[2, 1, 3, 4, 5]`
+
+Step 2: Reverse rest
+`[2, 1, 5, 4, 3]`
+
+Step 3: Reverse whole
+`[3, 4, 5, 1, 2]`
+
+---
+
+**Time Complexity:** O(n)
+**Space Complexity:** O(1)
+
+**Code:**
+
+```cpp
+#include <algorithm>
+
+void leftRotateByK(vector<int>& arr, int n, int k) {
+    k = k % n;
+
+    reverse(arr.begin(), arr.begin() + k);
+    reverse(arr.begin() + k, arr.end());
+    reverse(arr.begin(), arr.end());
+}
+```
+
+---
+
+## Quick Comparison Table
+
+| Problem     | Approach       | Time  | Space | Key Idea               |
+| ----------- | -------------- | ----- | ----- | ---------------------- |
+| Rotate by 1 | Brute          | O(n)  | O(n)  | Use extra array        |
+| Rotate by 1 | Better/Optimal | O(n)  | O(1)  | Shift in-place         |
+| Rotate by k | Brute          | O(nk) | O(1)  | Repeat single rotation |
+| Rotate by k | Better         | O(n)  | O(k)  | Temp array             |
+| Rotate by k | Optimal        | O(n)  | O(1)  | Reversal algorithm     |
+
+---
+
 # MOVE ZEROS TO END 
+
+
 
 # LINEAR SEARCH 
 
