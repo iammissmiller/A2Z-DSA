@@ -455,6 +455,159 @@ int main() {
 
 # LINEAR SEARCH 
 
+## 1. Brute Force Approach (Basic Linear Search)
+
+### Idea
+
+Check every element one by one until the target is found.
+
+### Code
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int linearSearch(int arr[], int n, int target) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == target) {
+            return i;   // return index if found
+        }
+    }
+    return -1;          // not found
+}
+
+int main() {
+    int arr[] = {4, 2, 7, 1, 9};
+    int n = 5;
+    int target = 7;
+
+    int result = linearSearch(arr, n, target);
+
+    if (result != -1)
+        cout << "Element found at index: " << result;
+    else
+        cout << "Element not found";
+
+    return 0;
+}
+```
+
+### Time Complexity
+
+* Best: **O(1)**
+* Average: **O(n)**
+* Worst: **O(n)**
+
+---
+
+## 2. Better Approach (For Sorted Array)
+
+### Idea
+
+If the array is sorted and current element becomes greater than target, stop searching.
+
+### Code
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int linearSearchSorted(int arr[], int n, int target) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == target)
+            return i;
+        else if (arr[i] > target)
+            break;   // stop early
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {1, 3, 5, 7, 9};
+    int n = 5;
+    int target = 5;
+
+    int result = linearSearchSorted(arr, n, target);
+
+    if (result != -1)
+        cout << "Element found at index: " << result;
+    else
+        cout << "Element not found";
+
+    return 0;
+}
+```
+
+### Time Complexity
+
+* Best: **O(1)**
+* Worst: **O(n)**
+* Can stop early in many cases.
+
+---
+
+## 3. Optimal Perspective
+
+For an **unsorted array**, the brute approach is already optimal.
+
+If the array is **sorted**, the optimal method is **Binary Search**.
+
+---
+
+### Binary Search Code (Optimal for Sorted Arrays)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int n, int target) {
+    int low = 0, high = n - 1;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {1, 3, 5, 7, 9};
+    int n = 5;
+    int target = 7;
+
+    int result = binarySearch(arr, n, target);
+
+    if (result != -1)
+        cout << "Element found at index: " << result;
+    else
+        cout << "Element not found";
+
+    return 0;
+}
+```
+
+### Time Complexity
+
+* Best: **O(1)**
+* Worst: **O(log n)**
+
+---
+
+## Quick Comparison
+
+| Approach         | Array Type | Time Complexity |
+| ---------------- | ---------- | --------------- |
+| Linear (Brute)   | Unsorted   | O(n)            |
+| Linear (Better)  | Sorted     | Up to O(n)      |
+| Binary (Optimal) | Sorted     | O(log n)        |
+
+---
 # UNION OF TWO SORTED ARRAYS
 
 # INTERSECTION OF TWO SORTED ARRAYS 
