@@ -608,6 +608,205 @@ int main() {
 | Binary (Optimal) | Sorted     | O(log n)        |
 
 ---
+
 # UNION OF TWO SORTED ARRAYS
+
+## Definition
+
+The **union** of two arrays contains:
+
+* All **unique elements**
+* From both arrays
+* In **sorted order**
+
+Example:
+
+```
+A = [1, 2, 3, 4, 5]
+B = [2, 3, 5, 6]
+
+Union = [1, 2, 3, 4, 5, 6]
+```
+
+---
+
+# 1. Brute Force Approach
+
+## Idea
+
+1. Insert all elements of both arrays into a **set**.
+2. A set automatically:
+
+   * Removes duplicates
+   * Keeps elements sorted.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> unionBrute(vector<int>& a, vector<int>& b) {
+    set<int> s;
+
+    for (int x : a)
+        s.insert(x);
+
+    for (int x : b)
+        s.insert(x);
+
+    vector<int> result(s.begin(), s.end());
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 3, 4, 5};
+    vector<int> b = {2, 3, 5, 6};
+
+    vector<int> result = unionBrute(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+### Complexity
+
+* Time: **O((n + m) log(n + m))**
+* Space: **O(n + m)**
+
+---
+
+# 2. Better Approach
+
+## Idea
+
+1. Use a **map or unordered_set**.
+2. Insert elements from both arrays.
+3. Then extract the unique values.
+
+### Code (using unordered_set)
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> unionBetter(vector<int>& a, vector<int>& b) {
+    unordered_set<int> s;
+
+    for (int x : a)
+        s.insert(x);
+
+    for (int x : b)
+        s.insert(x);
+
+    vector<int> result(s.begin(), s.end());
+    sort(result.begin(), result.end());
+
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 3, 4, 5};
+    vector<int> b = {2, 3, 5, 6};
+
+    vector<int> result = unionBetter(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+### Complexity
+
+* Time: **O(n + m)** average
+* Sorting: **O(k log k)** (k = unique elements)
+* Space: **O(n + m)**
+
+---
+
+# 3. Optimal Approach (Two-Pointer Method)
+
+## Idea
+
+Since arrays are **already sorted**:
+
+* Use two pointers.
+* Compare elements and add unique ones.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> unionOptimal(vector<int>& a, vector<int>& b) {
+    int i = 0, j = 0;
+    vector<int> result;
+
+    while (i < a.size() && j < b.size()) {
+        if (a[i] <= b[j]) {
+            if (result.empty() || result.back() != a[i])
+                result.push_back(a[i]);
+            i++;
+        } else {
+            if (result.empty() || result.back() != b[j])
+                result.push_back(b[j]);
+            j++;
+        }
+    }
+
+    // remaining elements
+    while (i < a.size()) {
+        if (result.empty() || result.back() != a[i])
+            result.push_back(a[i]);
+        i++;
+    }
+
+    while (j < b.size()) {
+        if (result.empty() || result.back() != b[j])
+            result.push_back(b[j]);
+        j++;
+    }
+
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 3, 4, 5};
+    vector<int> b = {2, 3, 5, 6};
+
+    vector<int> result = unionOptimal(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+---
+
+## Complexity of Optimal Approach
+
+* Time: **O(n + m)**
+* Space: **O(n + m)** (for result)
+* No extra data structures
+
+---
+
+## Final Comparison
+
+| Approach               | Time Complexity   | Space  | Best Use Case            |
+| ---------------------- | ----------------- | ------ | ------------------------ |
+| Brute (set)            | O((n+m) log(n+m)) | O(n+m) | Simple solution          |
+| Better (unordered_set) | O(n+m) avg        | O(n+m) | Faster but needs sorting |
+| Optimal (two pointers) | O(n+m)            | O(n+m) | Best for sorted arrays   |
+
+---
 
 # INTERSECTION OF TWO SORTED ARRAYS 
