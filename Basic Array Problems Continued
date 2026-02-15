@@ -810,3 +810,188 @@ int main() {
 ---
 
 # INTERSECTION OF TWO SORTED ARRAYS 
+
+## Definition
+
+The **intersection** of two arrays contains:
+
+* Only the **common elements**
+* Without duplicates
+* In sorted order
+
+### Example
+
+```
+A = [1, 2, 2, 3, 4, 5]
+B = [2, 2, 3, 5, 6]
+
+Intersection = [2, 3, 5]
+```
+
+---
+
+# 1. Brute Force Approach
+
+## Idea
+
+1. Compare each element of array A with every element of array B.
+2. If equal, add to result (avoid duplicates).
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> intersectionBrute(vector<int>& a, vector<int>& b) {
+    vector<int> result;
+    vector<bool> visited(b.size(), false);
+
+    for (int i = 0; i < a.size(); i++) {
+        for (int j = 0; j < b.size(); j++) {
+            if (a[i] == b[j] && !visited[j]) {
+                if (result.empty() || result.back() != a[i])
+                    result.push_back(a[i]);
+                visited[j] = true;
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 2, 3, 4, 5};
+    vector<int> b = {2, 2, 3, 5, 6};
+
+    vector<int> result = intersectionBrute(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+### Complexity
+
+* Time: **O(n × m)**
+* Space: **O(m)**
+
+---
+
+# 2. Better Approach (Using Set)
+
+## Idea
+
+1. Store elements of first array in a set.
+2. Check elements of second array.
+3. Add common ones to result.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> intersectionBetter(vector<int>& a, vector<int>& b) {
+    set<int> s(a.begin(), a.end());
+    set<int> resultSet;
+
+    for (int x : b) {
+        if (s.count(x))
+            resultSet.insert(x);
+    }
+
+    vector<int> result(resultSet.begin(), resultSet.end());
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 2, 3, 4, 5};
+    vector<int> b = {2, 2, 3, 5, 6};
+
+    vector<int> result = intersectionBetter(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+### Complexity
+
+* Time: **O((n + m) log n)**
+* Space: **O(n)**
+
+---
+
+# 3. Optimal Approach (Two Pointers)
+
+## Idea
+
+Since arrays are **sorted**:
+
+1. Use two pointers.
+2. Move pointers based on comparison.
+3. Add common elements (avoid duplicates).
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> intersectionOptimal(vector<int>& a, vector<int>& b) {
+    int i = 0, j = 0;
+    vector<int> result;
+
+    while (i < a.size() && j < b.size()) {
+        if (a[i] == b[j]) {
+            if (result.empty() || result.back() != a[i])
+                result.push_back(a[i]);
+            i++;
+            j++;
+        }
+        else if (a[i] < b[j]) {
+            i++;
+        }
+        else {
+            j++;
+        }
+    }
+    return result;
+}
+
+int main() {
+    vector<int> a = {1, 2, 2, 3, 4, 5};
+    vector<int> b = {2, 2, 3, 5, 6};
+
+    vector<int> result = intersectionOptimal(a, b);
+
+    for (int x : result)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+---
+
+## Complexity of Optimal Approach
+
+* Time: **O(n + m)**
+* Space: **O(1)** (excluding output)
+
+---
+
+## Final Comparison
+
+| Approach               | Time Complexity | Space | Use Case             |
+| ---------------------- | --------------- | ----- | -------------------- |
+| Brute                  | O(n×m)          | O(m)  | Very small arrays    |
+| Better (set)           | O((n+m) log n)  | O(n)  | When arrays unsorted |
+| Optimal (two pointers) | O(n+m)          | O(1)  | Sorted arrays        |
+
+---
