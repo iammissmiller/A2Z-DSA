@@ -1,0 +1,208 @@
+# Find Missing Number
+
+## Problem
+
+You are given an array of size **n-1** containing numbers from **1 to n**.
+Exactly **one number is missing**.
+Find the missing number.
+
+### Example
+
+```
+Input:
+n = 5
+arr = [1, 2, 4, 5]
+
+Output:
+3
+```
+
+---
+
+# 1. Brute Force Approach
+
+## Idea
+
+For each number from **1 to n**, check if it exists in the array.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int findMissingBrute(vector<int>& arr, int n) {
+    for (int i = 1; i <= n; i++) {
+        bool found = false;
+        for (int j = 0; j < arr.size(); j++) {
+            if (arr[j] == i) {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            return i;
+    }
+    return -1;
+}
+
+int main() {
+    int n = 5;
+    vector<int> arr = {1, 2, 4, 5};
+
+    cout << findMissingBrute(arr, n);
+}
+```
+
+### Complexity
+
+* Time: **O(n²)**
+* Space: **O(1)**
+
+---
+
+# 2. Better Approach (Using Hashing)
+
+## Idea
+
+1. Create a frequency array of size `n+1`.
+2. Mark the numbers present.
+3. The index with zero frequency is the missing number.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int findMissingBetter(vector<int>& arr, int n) {
+    vector<int> freq(n + 1, 0);
+
+    for (int x : arr) {
+        freq[x] = 1;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        if (freq[i] == 0)
+            return i;
+    }
+    return -1;
+}
+
+int main() {
+    int n = 5;
+    vector<int> arr = {1, 2, 4, 5};
+
+    cout << findMissingBetter(arr, n);
+}
+```
+
+### Complexity
+
+* Time: **O(n)**
+* Space: **O(n)**
+
+---
+
+# 3. Optimal Approach (Sum Formula)
+
+## Idea
+
+Sum of first `n` natural numbers:
+
+```
+n(n+1)/2
+```
+
+Subtract the sum of array elements from this.
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int findMissingOptimal(vector<int>& arr, int n) {
+    int totalSum = n * (n + 1) / 2;
+    int arrSum = 0;
+
+    for (int x : arr)
+        arrSum += x;
+
+    return totalSum - arrSum;
+}
+
+int main() {
+    int n = 5;
+    vector<int> arr = {1, 2, 4, 5};
+
+    cout << findMissingOptimal(arr, n);
+}
+```
+
+### Complexity
+
+* Time: **O(n)**
+* Space: **O(1)**
+
+---
+
+# 4. Most Optimal Approach (XOR Method)
+
+## Idea
+
+Properties of XOR:
+
+* `x ^ x = 0`
+* `x ^ 0 = x`
+
+So:
+
+```
+(1 ^ 2 ^ 3 ^ … ^ n) ^ (array elements) = missing number
+```
+
+### Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int findMissingXOR(vector<int>& arr, int n) {
+    int xor1 = 0, xor2 = 0;
+
+    for (int i = 1; i <= n; i++)
+        xor1 ^= i;
+
+    for (int x : arr)
+        xor2 ^= x;
+
+    return xor1 ^ xor2;
+}
+
+int main() {
+    int n = 5;
+    vector<int> arr = {1, 2, 4, 5};
+
+    cout << findMissingXOR(arr, n);
+}
+```
+
+### Complexity
+
+* Time: **O(n)**
+* Space: **O(1)**
+* Safer than sum method (no overflow)
+
+---
+
+# Final Comparison
+
+| Approach           | Time  | Space | Notes               |
+| ------------------ | ----- | ----- | ------------------- |
+| Brute              | O(n²) | O(1)  | Very basic          |
+| Better (hashing)   | O(n)  | O(n)  | Uses extra space    |
+| Optimal (sum)      | O(n)  | O(1)  | May overflow        |
+| Most Optimal (XOR) | O(n)  | O(1)  | Best for interviews |
+
+---
